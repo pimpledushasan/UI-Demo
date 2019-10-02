@@ -4,6 +4,7 @@ package com.demo.autotest.steps;
 import org.openqa.selenium.WebElement;
 
 import com.demo.base.BaseStep;
+import com.demo.common.ActionHandler;
 import com.demo.common.AssertHandler;
 import com.demo.pages.SearchResultPage;
 
@@ -16,12 +17,14 @@ public class SearchResultStep extends BaseStep{
 	@When("^I verify the title \"(.*)\" on result page$")
 	public void iVerifyTheTitle(String title)
 	{
-	  AssertHandler.assertResultTrue(searchResultPage.firstHeading.getText().equalsIgnoreCase(title), "Title not matching");	  
+		ActionHandler.waitForPageLoad();
+		AssertHandler.assertResultTrue(searchResultPage.firstHeading.getText().equalsIgnoreCase(title), "Title not matching");	  
 	}
 	
 	@When("^I see the \"(.*)\" link on result page$")
 	public void iSeeTheLink(String link){
 
+		ActionHandler.waitForPageLoad();
 		String language = utils.languageMap.get(link);		
 	    WebElement el = SearchResultPage.langugeWebelementList.stream()
 		.filter(web -> web.getText().equals(language))
@@ -37,8 +40,9 @@ public class SearchResultStep extends BaseStep{
 	@When("^I click on \"(.*)\" link$")
 	public void iClickOtherLink(String link){
 		
-		String language = utils.languageMap.get(link);
+		ActionHandler.waitForPageLoad();
 		
+		String language = utils.languageMap.get(link);
 	    WebElement el = SearchResultPage.langugeWebelementList.stream()
 		.filter(web -> web.getText().equals(language))
 		.findAny()
@@ -51,10 +55,7 @@ public class SearchResultStep extends BaseStep{
 		else {
 			Assert.fail("Could not click on link -"+language);
 		}
-	
-		try {
-			Thread.sleep(5000);
-		}catch(Exception e) {}
+
 	}
 	
 	

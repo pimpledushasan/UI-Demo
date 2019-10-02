@@ -12,9 +12,9 @@ public class SearchStep extends BaseStep{
 
 	@When("^I verify the default language selected is \"(.*)\"$")
 	public void iVerifyLanguageSelected(String lang){
-	 
-	  String langSelected = ActionHandler.getDropDownValue(searchPage.languageSelectFiled);
-	  AssertHandler.assertResultTrue(langSelected.equalsIgnoreCase(lang), "Language not selected by Default - "+lang);
+		ActionHandler.waitForPageLoad();
+		String langSelected = ActionHandler.getDropDownValue(searchPage.languageSelectFiled);
+		AssertHandler.assertResultTrue(langSelected.equalsIgnoreCase(lang), "Language not selected by Default - "+lang);
 	}
 	
 

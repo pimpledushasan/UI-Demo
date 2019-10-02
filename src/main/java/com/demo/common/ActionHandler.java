@@ -1,12 +1,11 @@
 package com.demo.common;
 
-//import static com.ho.dvla.base.BaseDriver.getDriver;
-
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -24,6 +23,7 @@ import com.demo.base.BaseDriver;
 
 public class ActionHandler extends EventFiringWebDriver {
 
+	
 	static RemoteWebDriver driver = BaseDriver.getDriver();
 	
 	public ActionHandler(){
@@ -31,6 +31,16 @@ public class ActionHandler extends EventFiringWebDriver {
 	}
 	
 	
+	/**
+	 * This method waits until the page is loaded.
+	 */
+	public static void waitForPageLoad()
+	{
+		boolean pageLoaded = false;
+		while(!pageLoaded) {
+			pageLoaded = ((JavascriptExecutor)driver).executeScript("return document.readyState").toString().equals("complete");
+		}
+	}
 	
     /**
      * Finds an input element containing the specified text using either
@@ -53,7 +63,7 @@ public class ActionHandler extends EventFiringWebDriver {
 		}
 	}
 	
-    /*
+    /**
      * Acts as a place holder for entering value into an input element
      * @param input
      * @return
@@ -103,6 +113,10 @@ public class ActionHandler extends EventFiringWebDriver {
        return fluentWait().until(ExpectedConditions.elementToBeClickable(element));
    }
 
+   /**
+    * Avvoid to use this wait. only use if required.
+    * @param seconds
+    */
 	public static void wait(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
