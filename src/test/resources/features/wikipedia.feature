@@ -10,7 +10,7 @@ Then I verify the title "<search_title>" on result page
 When I see the "<other_language>" link on result page
 And I click on "<other_language>" link
 Then I verify the title "<other_title>" on result page
-When I see the "<language>" link on result page 
+And I see the "<language>" link on result page 
 
 Examples:
 |search_title	|language	|other_language|other_title	|
